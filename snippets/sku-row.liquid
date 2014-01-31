@@ -2,7 +2,7 @@
   <td class="product-table-add">
     <form action="/cart/add" method="post" class="variants" id="product-actions" enctype="multipart/form-data">
       <input type="hidden" name="id" value="{{ variant.id }}" />
-      <button class="btn btn-mini add-to-cart" type="button" name="add" data-id="{{ variant.id }}" data-sku="{{ variant.sku | escape}}" data-name="{% include 'product-name' %}">
+      <button class="btn btn-mini add-to-cart" type="button" name="add" data-id="{{ variant.id }}" data-sku="{{ variant.sku | escape}}" data-name="{% include 'product-name-for-add-to-cart' %}">
         <i class="icon-shopping-cart" data-id="{{ variant.id }}" data-sku="{{ variant.sku | escape }}" data-name="{% include 'product-name-for-add-to-cart' %}"></i>
       </button>
     </form>
