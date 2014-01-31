@@ -237,3 +237,14 @@ form.search-form input[type=submit] {
 .description p:last-child {
     margin-bottom: 0;
 }
+
+/* Override Bootstrap's dumb "show links" behavior. */
+@media print {
+    a[href]:after {
+        content: "";
+    }
+
+    abbr[title]:after {
+        content: "";
+    }
+}
