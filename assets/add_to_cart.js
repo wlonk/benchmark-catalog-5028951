@@ -36,9 +36,27 @@ jQuery(function($) {
     // add min if SKU.startswith('75') or SKU.startswith('71')
     // Special case for Poly Plain Weave and Linens:
     if (sku.slice(0, 2) == '71' || sku.slice(0, 2) == '75') {
-      $('#add-to-cart-modal input[name=number]').attr('min', '5');
-      $('#add-to-cart-modal input[name=number]').attr('value', '5');
+      if (sku.slice(0, 2) == '71') {
+        var min = '5';
+        var max = false;
+      } else if (sku.slice(-1) == 'A') {
+        var min = '5';
+        var max = '14';
+      } else if (sku.slice(-1) == 'B') {
+        var min = '15';
+        var max = '29';
+      } else if (sku.slice(-1) == 'C') {
+        var min = '30';
+        var max = false;
+      }
     }
+    $('#add-to-cart-modal input[name=number]').attr('min', min);
+    if (max) {
+      $('#add-to-cart-modal input[name=number]').attr('max', max);
+    } else {
+      $('#add-to-cart-modal input[name=number]').removeAttr('max');
+    }
+    $('#add-to-cart-modal input[name=number]').attr('value', min);
     $('#add-to-cart-modal').modal('show');
   });
   $('#add-to-cart-modal').on('hidden', function() {
