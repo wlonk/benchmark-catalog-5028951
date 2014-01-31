@@ -4,6 +4,19 @@
 
 <form action="/cart" method="post">
   <input type="hidden" name="attributes[weight]" value="{{ cart.total_weight | weight_with_unit }}" />
+
+  {% assign collection_url = cart.items.first.product.collections.first.url %}
+  {% if collection_url == '/collections/frontpage' or collection_url == '' %}
+    {% assign collection_url = '/collections/benchmark-butterfly-bookmounts' %}
+  {% endif %}
+
+
+  <a class="btn" href="{{ collection_url }}">Continue shopping</a>
+  <span class="or">or</span>
+  <input class="btn" type="submit" name="update" value="Update cart" />
+  <span class="or">or</span>
+  <input class="btn" type="submit" name="checkout" value="Check out" />
+
   <table class="table">
 
     <thead>
@@ -24,15 +37,17 @@
       Determining the handle of the collection that was last seen for the 'continue shopping' link.
       {% endcomment %}
 
-      {% if forloop.first %}
-        {% assign collection_url = item.product.collections.first.url %}
-        {% if collection_url == '/collections/frontpage' or collection_url == '' %}{% assign collection_url = '/collections/benchmark-butterfly-bookmounts' %}{% endif %}
-      {% endif %}
-
       <tr>
         <td class="cart-item">
           <a href="{{ item.product.url | within: collections.all }}">
-            {% include 'product-name-for-add-to-cart' %}
+            {{ item.product.title }}:
+            {% if item.product.options[0] == 'Title' %}
+                {{ item.variant.option1 | escape }}
+            {% elsif item.product.options[1] == 'Title' %}
+                {{ item.variant.option1 | escape }}: {{ item.variant.option2 | escape }}
+            {% else %}
+                {{ item.variant.title }}
+            {% endif %}
           </a>
           {% comment %}
           Line Item Properties
