@@ -1,0 +1,9 @@
+{
+  "current": "Benchmark",
+  "presets": {
+    "Benchmark": {
+      "use_logo": false,
+      "customer_layout": "theme"
+    }
+  }
+}

@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]><html class="no-js lt-ie9 lt-ie8 lt-ie7" lang="en"> <![endif]-->
+<!--[if IE 7]><html class="no-js lt-ie9 lt-ie8" lang="en"> <![endif]-->
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en"> <![endif]-->
+<!--[if IE 9 ]><html class="ie9 no-js"> <![endif]-->
+<!--[if (gt IE 9)|!(IE)]><!--> <html class="no-js"> <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+
+  {% if template == 'index' %}
+    <title>{{ shop.name }} | {{ page_title }}</title>
+  {% elsif template == '404' %}
+    <title>Page Not Found | {{ shop.name }}</title>
+  {% else %}
+    <title>{{ page_title }} | {{ shop.name }}</title>
+  {% endif %}
+
+  {% if page_description %}
+    <meta name="description" content="{{ page_description }}" />
+  {% endif %}
+
+  <link rel="canonical" href="{{ canonical_url }}" />
+
+  <meta name="viewport" content="width=device-width" />
+
+  {{ content_for_header }}
+
+  <link href='http://fonts.googleapis.com/css?family=Muli:300' rel='stylesheet' type='text/css'>
+  {{ '//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/2.3.2/css/bootstrap.min.css' | stylesheet_tag }}
+  {{ '//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/2.3.2/css/bootstrap-responsive.min.css' | stylesheet_tag }}
+  {{ 'style.css' | asset_url | stylesheet_tag }}
+
+  <!--[if lt IE 9]>
+    {{ '//html5shiv.googlecode.com/svn/trunk/html5.js' | script_tag }}
+  <![endif]-->
+
+  {{ 'option_selection.js' | shopify_asset_url | script_tag }}
+
+  {% if template contains 'customers' %}
+  {{ 'shopify_common.js' | shopify_asset_url | script_tag }}
+  {{ 'customer_area.js'  | shopify_asset_url | script_tag }}
+  {% endif %}
+
+  {% comment %}
+    Needed when shopify_common.js is used.
+    We will get rid of that depency:
+    https://github.com/Shopify/shopify/issues/3732
+  {% endcomment %}
+  <!--[if lt IE 8]>
+    {{ 'json2.js' | asset_url | script_tag }}
+  <![endif]-->
+
+  {{ '//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js' | script_tag }}
+  {{ '//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/2.3.2/js/bootstrap.min.js' | script_tag }}
+  {{ 'humanize.min.js' | asset_url | script_tag }}
+
+</head>
+
+<body id="{{ page_title | handle }}" class="{% if customer %}customer-logged-in {% endif %}template-{{ template | replace: '.', ' ' | truncatewords: 1, '' | handle }}" >
+
+  <header>
+
+    {% if shop.customer_accounts_enabled %}
+    <p class="customer-links">
+      {% if customer %}
+        Logged in as <a href="/account">{{ customer.first_name }}</a> · {{ 'Log out' | customer_logout_link }}
+      {% else %}
+        {{ 'Log in' | customer_login_link }}
+        {% if shop.customer_accounts_optional %}
+        or {{ 'Create an account' | customer_register_link }}
+        {% endif %}
+      {% endif %}
+    </p>
+    {% endif %}
+
+    {% comment %}
+    Note on checkout link: it is a good idea to avoid linking to /checkout directly because shops that use
+    Paypal Express Checkout and/or Google Checkout have special checkout buttons on the /cart page. Also,
+    special instructions for the seller are entered on the /cart page.
+    {% endcomment %}
+
+    <div class="checkout-link">
+      {% comment %}
+      Older browsers don't support the HTML5 placeholder attribute, so it's a good idea to use JavaScript
+      to show and hide the placeholder text.
+      Have a look in assets/shop.js.liquid to see sample JavaScript for this.
+      {% endcomment %}
+      <form action="/search" method="get" class="search-form" role="search">
+        <input name="q" type="text" id="search-field" placeholder="Search products&hellip;" class="hint" />
+        <input type="submit" id="search-submit" value="Search" />
+      </form>
+      <a href="/cart"><span id="cart-item-count">{{ cart.item_count }} {{ cart.item_count | pluralize: 'item', 'items' }}</span>: <span id="cart-total-price">{{ cart.total_price | money }}</span> <span class="view-cart">View Cart</span></a>
+    </div>
+
+    {% comment %}
+    It would be nice if the logo was a shop setting, rather than a theme setting.
+    But for now, it is a theme setting. The shop logo is uploaded on the theme settings page.
+    Link to the theme settings page of currently published theme will always be:
+    http://www.shopify.com/admin/themes/current/settings. In the theme's files, in your instructions,
+    use a relative link: /admin/themes/current/settings.
+    To add theme settings to a theme, see this: http://wiki.shopify.com/Theme_Settings
+    Theme settings are added to http://www.shopify.com/admin/themes/current#config/settings.html
+    {% endcomment %}
+
+    {% if settings.use_logo %}
+    <a id="logo" href="/" role="banner">
+      {{ 'logo.png' | asset_url | img_tag: shop.name }}
+    </a><!-- #logo -->
+    {% endif %}
+    {% if template == 'index' %}
+    <h1 id="site-title"{% if settings.use_logo %} class="hidden"{% else %} role="banner"{% endif %}>
+      <a href="/">{{ shop.name }}</a>
+    </h1>
+    {% else %}
+    <a id="site-title" href="/" role="banner">{{ shop.name }}</a>
+    {% endif %}
+  </header>
+
+  <nav role="navigation">
+    <ul class="nav">
+      {% for link in linklists.main-menu.links %}
+      {% assign has_sub_menu = false %}
+      {% assign has_sub_categories = false %}
+      {% assign parent_link_active = false %}
+      {% assign child_list_handle = link.title | handle %}
+      {% if linklists[child_list_handle] and linklists[child_list_handle].links.size > 0 %}
+        {% assign has_sub_menu = true %}
+        {% for l in linklists[child_list_handle].links %}
+          {% if page_title == l.title %}
+            {% assign parent_link_active = true %}
+          {% endif %}
+        {% endfor %}
+      {% elsif link.type == 'collection_link' and link.object.all_tags.size > 0 %}
+        {% assign has_sub_categories = true %}
+      {% endif %}
+      <li class="nav-item{% if forloop.first %} first{% elsif forloop.last %} last{% endif %}{% if link.active or parent_link_active %} active{% endif %}{% if has_sub_menu or has_sub_categories %} has-dropdown{% endif %}">
+        {{ link.title | link_to: link.url }}
+      </li>
+      {% endfor %}
+    </ul>
+  </nav>
+
+  <div class="container-fluid">
+    <div class="row-fluid">
+      <div id="main" role="main">
+        {% comment %}
+        If we are on the /collections page, we will list collections in the shop.
+        Unfortunately, Shopify does not let us use an actual template file for the /collections page.
+        {% endcomment %}
+        {% if template == 'list-collections' %}
+        {% include 'collection-listing' %}
+        {% else %}
+        {% comment %}
+        Else, we have a template file to render.
+        That's what content_for_layout is for.
+        {% endcomment %}
+        {{ content_for_layout }}
+        {% endif %}
+      </div>
+
+    {% comment %}Shopify does not support Internet Explorer 6.{% endcomment %}
+    <!--[if lt IE 7]>
+    <p class="chromeframe">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> or <a href="http://www.google.com/chromeframe/?redirect=true">activate Google Chrome Frame</a> to improve your experience.</p>
+    <![endif]-->
+    </div>
+
+    <div class="row-fluid">
+      <footer>
+        <p role="contentinfo">Copyright &copy; {{ "now" | date: "%Y" }} {{ shop.name }}. {{ powered_by_link }}.</p>
+      </footer>
+    </div>
+  </div><!-- end of #container -->
+
+  {{ 'shop.js'  | asset_url | script_tag }}
+  {{ 'add_to_cart.js'  | asset_url | script_tag }}
+</body>
+</html>

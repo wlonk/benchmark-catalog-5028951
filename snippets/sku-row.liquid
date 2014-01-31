@@ -1,0 +1,58 @@
+<tr>
+  <td class="product-table-add">
+    <form action="/cart/add" method="post" class="variants" id="product-actions" enctype="multipart/form-data">
+      <input type="hidden" name="id" value="{{ variant.id }}" />
+      <button class="btn btn-mini add-to-cart" type="button" name="add" data-id="{{ variant.id }}" data-sku="{{ variant.sku | escape}}" data-name="{% include 'product-name' %}">
+        <i class="icon-shopping-cart" data-id="{{ variant.id }}" data-sku="{{ variant.sku | escape }}" data-name="{% include 'product-name-for-add-to-cart' %}"></i>
+      </button>
+    </form>
+  </td>
+  <td class="product-table-price">{{ variant.price | money }}</td>
+  <td class="product-table-sku">{{ variant.sku }}</td>
+  <td class="product-table-name">
+    {% comment %}
+    <!-- {{ variant.title }} -->
+    If product SKU in
+
+23-230
+23-312
+23-313
+23-250
+23-421
+23-030
+23-020
+23-010
+21-310
+23-120
+23-110
+23-040
+22-251
+22-360
+22-271
+22-281
+
+Output description based off this key.
+
+    {% endcomment %}
+
+    {% case variant.sku %}
+      {% when '23-230' %}
+        <div class="subtitle">Special description for 23-230</div>
+      {% when '23-312' %}
+        <div class="subtitle">Special description for 23-312</div>
+    {% endcase %}
+
+
+    {% if product.options[0] == 'Style' %}
+      {{ variant.option2 }}
+      {% if variant.option3 != 'Default Subtitle' %}
+      <div class="subtitle">{{ variant.option3 }}</div>
+      {% endif %}
+    {% else %}
+      {{ variant.option1 }}
+      {% if variant.option2 != 'Default Subtitle' %}
+      <div class="subtitle">{{ variant.option2 }}</div>
+      {% endif %}
+    {% endif %}
+  </td>
+</tr>

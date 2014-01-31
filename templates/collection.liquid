@@ -1,0 +1,60 @@
+<div id="add-to-cart-modal" class="modal hide fade" tabindex='-1'>
+  <div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+    <h3>Add to cart</h3>
+  </div>
+  <div class="modal-body">
+    <div id="add-to-cart-errors">
+    </div>
+    <form action="/" method="post" id="add-to-cart-form">
+      <input name="sku" type="hidden" value="">
+      <input name="id" type="hidden" value="">
+      Adding <input name="number" type="number" value="1" min="1">
+      <span class="product">widgets</span>.
+    </form>
+  </div>
+  <div class="modal-footer">
+    <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
+    <button class="btn btn-primary" form="add-to-cart-form">Add to cart</button>
+  </div>
+</div>
+
+<div id="col-main" class="{{ collection.handle }}">
+
+  <section class="diagonal-divider clearfix">
+    <header class="section-details clearfix">
+      <h1 class="section-title">{{ collection.title }}</h1>
+      {% if collection.description != empty %}
+        <div class="description content">{{ collection.description }}</div>
+      {% endif %}
+    </header>
+
+    {% for product in collection.products %}
+      <h2 id="{{ product.handle }}">{{ product.title }}</h2>
+
+      <div class="description content">
+        {{ product.description }}
+      </div>
+
+      <table>
+        <tbody>
+        {% assign current_subcategory = '' %}
+        {% for variant in product.variants %}
+          {% if product.options[0] == 'Style' and variant.option1 != current_subcategory %}
+            </tbody>
+            </table>
+            {% assign current_subcategory = variant.option1 %}
+            <h3>{{ current_subcategory }}</h3>
+            <table>
+            <tbody>
+            {% include 'sku-row' %}
+          {% else %}
+            {% include 'sku-row' %}
+          {% endif %}
+        {% endfor %}
+        </tbody>
+      </table>
+    {% endfor %}
+  </section>
+
+</div> <!-- /#col-main -->
