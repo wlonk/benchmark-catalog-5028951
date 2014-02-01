@@ -70,7 +70,7 @@
         </td>
         <td class="cart-price">{{ item.price | money }}</td>
         <td class="cart-quantity">
-          <input type="number" name="updates[]" id="updates_{{ item.id }}" value="{{ item.quantity }}" />
+          <input type="number" name="updates[]" id="updates_{{ item.id }}" value="{{ item.quantity }}" data-sku="{{ item.variant.sku }}" />
         </td>
         <td class="cart-total">{{ item.line_price | money }}</td>
         <td class="cart-remove">

@@ -1,4 +1,42 @@
+function get_min_and_max (sku) {
+  var min = false;
+  var max = false;
+  if (sku.slice(0, 2) == '71' || sku.slice(0, 2) == '75') {
+    if (sku.slice(0, 2) == '71') {
+      var min = '5';
+      var max = false;
+    } else if (sku.slice(-1) == 'A') {
+      var min = '5';
+      var max = '14';
+    } else if (sku.slice(-1) == 'B') {
+      var min = '15';
+      var max = '29';
+    } else if (sku.slice(-1) == 'C') {
+      var min = '30';
+      var max = false;
+    }
+  }
+  return [min, max];
+}
+
 jQuery(function($) {
+  $('td.cart-quantity input').each(function () {
+    var sku = $(this).data('sku');
+    var min_and_max = get_min_and_max(sku);
+    var min = min_and_max[0];
+    var max = min_and_max[1];
+    if (min) {
+      $(this).attr('min', min);
+    } else {
+      $(this).removeAttr('min');
+    }
+    if (max) {
+      $(this).attr('max', max);
+    } else {
+      $(this).removeAttr('max');
+    }
+  });
+
   function update_cart_tab() {
     $.ajax('/cart.js', {
       type: 'GET',
@@ -33,25 +71,9 @@ jQuery(function($) {
     $('#add-to-cart-modal input[name=sku]').val(sku);
     $('#add-to-cart-modal input[name=id]').val(id);
     $('#add-to-cart-modal .product').html(name);
-    // add min if SKU.startswith('75') or SKU.startswith('71')
-    // Special case for Poly Plain Weave and Linens:
-    var min = false;
-    var max = false;
-    if (sku.slice(0, 2) == '71' || sku.slice(0, 2) == '75') {
-      if (sku.slice(0, 2) == '71') {
-        var min = '5';
-        var max = false;
-      } else if (sku.slice(-1) == 'A') {
-        var min = '5';
-        var max = '14';
-      } else if (sku.slice(-1) == 'B') {
-        var min = '15';
-        var max = '29';
-      } else if (sku.slice(-1) == 'C') {
-        var min = '30';
-        var max = false;
-      }
-    }
+    var min_and_max = get_min_and_max(sku);
+    var min = min_and_max[0];
+    var max = min_and_max[1];
     if (min) {
       $('#add-to-cart-modal input[name=number]').attr('min', min);
       $('#add-to-cart-modal input[name=number]').attr('value', min);
