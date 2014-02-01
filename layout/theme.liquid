@@ -103,16 +103,12 @@
     Theme settings are added to http://www.shopify.com/admin/themes/current#config/settings.html
     {% endcomment %}
 
-    {% if template == 'index' %}
-    <h1 id="site-title"{% if settings.use_logo %} class="hidden"{% else %} role="banner"{% endif %}>
+    <h1 id="site-title" role="banner">
       <a href="/">
         {{ 'logo.png' | asset_url | img_tag: shop.name }}
         {{ shop.name }}
       </a>
     </h1>
-    {% else %}
-    <a id="site-title" href="/" role="banner">{{ shop.name }}</a>
-    {% endif %}
   </header>
 
   <nav role="navigation">
