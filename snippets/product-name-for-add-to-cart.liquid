@@ -1,8 +1,8 @@
-{{ product.title }}:
+{{ product.title | escape }}:
 {% if product.options[0] == 'Title' %}
     {{ variant.option1 | escape }}
 {% elsif product.options[1] == 'Title' %}
     {{ variant.option1 | escape }}: {{ variant.option2 | escape }}
 {% else %}
-    {{ variant.title }}
+    {{ variant.title | escape }}
 {% endif %}

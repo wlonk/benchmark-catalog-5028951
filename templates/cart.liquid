@@ -39,7 +39,7 @@
 
       <tr>
         <td class="cart-item">
-          <a href="{{ item.product.url | within: collections.all }}">
+          <a href="{{ item.product.collections[0].url }}#{{ item.product.handle }}">
             {{ item.product.title }}:
             {% if item.product.options[0] == 'Title' %}
                 {{ item.variant.option1 | escape }}
