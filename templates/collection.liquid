@@ -49,7 +49,35 @@
             </tbody>
             </table>
             {% assign current_subcategory = variant.option1 %}
-            <h3>{{ current_subcategory }}</h3>
+            <h3>
+              {% case current_subcategory %}
+              {% when 'Just the Plates' %}
+                Just Quarter-turn plates with which to convert your "regular" Horizontal Butterfly Bookmount:
+              {% when 'Complete Bookmount' %}
+                {% case product.title %}
+                  {% when 'Quarter-Turn Display' %}
+                    Or, the "Complete" Quarter-turn for when you have no "regular" Horizontals to convert over.
+                  {% when 'Cover-Only Display' %}
+                    Or, the "Complete" Cover-Only for when you have no "regular" Upright to convert
+                {% endcase %}
+              {% when 'Just the Plate and Brass Fitting' %}
+                Just a Cover-Only plate &amp; brass fitting to convert your "regular" Upright Butterfly Bookmount
+              {% when 'Almond blend' %}
+                Almond, 51% linen + 49% cotton, 55" w.
+              {% when 'Black' %}
+                Black, 100% linen, 60" w.
+              {% when 'Oatmeal blend' %}
+                Oatmeal, 60% linen + 40% cotton, 58" w.
+              {% when 'Oatmeal' %}
+                Oatmeal, 100% linen, 60" w.
+              {% when 'Oyster' %}
+                Oyster, 100% linen, 60" w.
+              {% when 'Natural Wheat' %}
+                Natural Wheat, 100% linen, 55" w.
+              {% else %}
+                {{ current_subcategory }}
+              {% endcase %}
+            </h3>
             <table>
             <tbody>
             {% include 'sku-row' %}

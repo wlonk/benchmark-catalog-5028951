@@ -35,23 +35,189 @@ Output description based off this key.
 
     {% endcomment %}
 
-    {% case variant.sku %}
-      {% when '23-230' %}
-        <div class="subtitle">Special description for 23-230</div>
-      {% when '23-312' %}
-        <div class="subtitle">Special description for 23-312</div>
-    {% endcase %}
 
 
     {% if product.options[0] == 'Style' %}
       {{ variant.option2 }}
       {% if variant.option3 != 'Default Subtitle' %}
-      <div class="subtitle">{{ variant.option3 }}</div>
+      {% case variant.sku %}
+        {% when '11-113PL' %}
+          <div class="subtitle">4-1/2"w. x 8"h. plates to go on Standard or Intermediate sized base.</div>
+        {% when '11-114PL' %}
+          <div class="subtitle">7"w. x 11"h. plates to go on Standard or Intermediate sized base.</div>
+        {% when '11-122PL' %}
+          <div class="subtitle">11"w. x 17-1/2"h. plates to go on Folio sized base.</div>
+        {% when '11-113C' %}
+          <div class="subtitle">with plates sized 4-1/2"w. x 8"h.</div>
+        {% when '11-114C' %}
+          <div class="subtitle">with plates sized 7"w. x 11"h.</div>
+        {% when '11-122C' %}
+          <div class="subtitle">with plates sized 11"w. x 17-1/2"h.</div>
+        {% when '11-232PL' %}
+          <div class="subtitle">4"w. x 6"h. plate and brass fitting to use with Mini Upright base.</div>
+        {% when '11-212PL' %}
+          <div class="subtitle">4-1/2"w. x 8"h. plate and brass fitting to use with Standard Upright base.</div>
+        {% when '11-222PL' %}
+          <div class="subtitle">7"w. x 11"h. plate and brass fitting to use with Intermediate Upright base.</div>
+        {% when '11-131C' %}
+          <div class="subtitle">for covers 4"w. x 6"h.</div>
+        {% when '11-111C' %}
+          <div class="subtitle">for covers 4-1/2"w. x 8"h. to approx. 6-1/2"w. x 10"h.</div>
+        {% when '11-112C' %}
+          <div class="subtitle">for covers 7"w. x 11"h. to approx. 9-1/2"w. x 14"h.</div>
+        {% when '11-121C' %}
+          <div class="subtitle">for covers 11"w. x 18"h. to approx. 15"w. x 20"h.</div>
+        {% when '11-231C' %}
+          <div class="subtitle">for covers 3"w. x 5"h. to approx. 4"w. x 6"h.</div>
+        {% when '11-211C' %}
+          <div class="subtitle">for covers 4-1/2"w. x 8"h. to approx 6-1/2"w. x 10"h.</div>
+        {% when '11-221C' %}
+          <div class="subtitle">for covers 7"w. x 11"h. to approx. 9-1/2"w. x 14"h.</div>
+        {% when '34-121' %}
+          <div class="subtitle">for Brass Rod sizes 1/32" to 3/64"</div>
+        {% when '34-122' %}
+          <div class="subtitle">for Brass Rod sizes 1/16" to 7/64"</div>
+        {% when '34-123' %}
+          <div class="subtitle">for Brass Rod sizes 3/32" to 11/64"</div>
+        {% when '34-124' %}
+          <div class="subtitle">for Brass Rod sizes 1/8" to 15/64"</div>
+        {% when '34-125' %}
+          <div class="subtitle">for Brass Rod sizes 3/16" to 23/64"</div>
+        {% when '34-111' %}
+          <div class="subtitle">for all sizes of our Stainless Steel Pins</div>
+        {% when '22-211' %}
+          <div class="subtitle">Stem (a): 1/16" x 6" &amp; Crossbar (b): 1/32" x 6"</div>
+        {% when '22-212' %}
+          <div class="subtitle">Stem (a): 3/32" x 7" &amp; Crossbar (b): 1/16" x 7"</div>
+        {% when '22-213' %}
+          <div class="subtitle">Stem (a): 1/8" x 8" &amp; Crossbar (b): 3/32" x 8"</div>
+        {% when '22-221' %}
+          <div class="subtitle">Stem (a): 1/16" x 6" &amp; each Arm (b): 1/32" x 3"</div>
+        {% when '22-222' %}
+          <div class="subtitle">Stem (a): 3/32" x 4" &amp; each Arm (b): 1/16" x 3-1/2"</div>
+        {% when '22-223' %}
+          <div class="subtitle">Stem (a): 1/8" x 5-1/2" &amp; each Arm (b): 3/32" x 4"</div>
+        {% when '22-281' %}
+          <div class="subtitle">Rod: 5/32" x 8" &amp; Straps: 1/16" x 1/4" x 3"</div>
+        {% when '22-261W' %}
+          <div class="subtitle">for 6" to 8" diam. plate</div>
+        {% when '22-262W' %}
+          <div class="subtitle">for 8" to 10" diam. plate</div>
+        {% when '22-263W' %}
+          <div class="subtitle">for 10" to 12" diam. plate</div>
+        {% when '22-261D' %}
+          <div class="subtitle">for 6" to 8" diam. plate</div>
+        {% when '22-262D' %}
+          <div class="subtitle">for 8" to 10" diam. plate</div>
+        {% when '22-263D' %}
+          <div class="subtitle">for 10" to 12" diam. plate</div>
+        {% when '05-100' %}
+          <div class="subtitle">2" x 2"</div>
+        {% when '05-160' %}
+          <div class="subtitle">2" x 3"</div>
+        {% when '05-110' %}
+          <div class="subtitle">2" x 4"</div>
+        {% when '05-120' %}
+          <div class="subtitle">2" x 6"</div>
+        {% when '05-140' %}
+          <div class="subtitle">2" x 11"</div>
+        {% when '05-150' %}
+          <div class="subtitle">4" x 7"</div>
+
+        {% else %}
+          <div class="subtitle">{{ variant.option3 }}</div>
+      {% endcase %}
       {% endif %}
     {% else %}
       {{ variant.option1 }}
       {% if variant.option2 != 'Default Subtitle' %}
-      <div class="subtitle">{{ variant.option2 }}</div>
+      {% case variant.sku %}
+        {% when '11-113PL' %}
+          <div class="subtitle">4-1/2"w. x 8"h. plates to go on Standard or Intermediate sized base.</div>
+        {% when '11-114PL' %}
+          <div class="subtitle">7"w. x 11"h. plates to go on Standard or Intermediate sized base.</div>
+        {% when '11-122PL' %}
+          <div class="subtitle">11"w. x 17-1/2"h. plates to go on Folio sized base.</div>
+        {% when '11-113C' %}
+          <div class="subtitle">with plates sized 4-1/2"w. x 8"h.</div>
+        {% when '11-114C' %}
+          <div class="subtitle">with plates sized 7"w. x 11"h.</div>
+        {% when '11-122C' %}
+          <div class="subtitle">with plates sized 11"w. x 17-1/2"h.</div>
+        {% when '11-232PL' %}
+          <div class="subtitle">4"w. x 6"h. plate and brass fitting to use with Mini Upright base.</div>
+        {% when '11-212PL' %}
+          <div class="subtitle">4-1/2"w. x 8"h. plate and brass fitting to use with Standard Upright base.</div>
+        {% when '11-222PL' %}
+          <div class="subtitle">7"w. x 11"h. plate and brass fitting to use with Intermediate Upright base.</div>
+        {% when '11-131C' %}
+          <div class="subtitle">for covers 4"w. x 6"h.</div>
+        {% when '11-111C' %}
+          <div class="subtitle">for covers 4-1/2"w. x 8"h. to approx. 6-1/2"w. x 10"h.</div>
+        {% when '11-112C' %}
+          <div class="subtitle">for covers 7"w. x 11"h. to approx. 9-1/2"w. x 14"h.</div>
+        {% when '11-121C' %}
+          <div class="subtitle">for covers 11"w. x 18"h. to approx. 15"w. x 20"h.</div>
+        {% when '11-231C' %}
+          <div class="subtitle">for covers 3"w. x 5"h. to approx. 4"w. x 6"h.</div>
+        {% when '11-211C' %}
+          <div class="subtitle">for covers 4-1/2"w. x 8"h. to approx 6-1/2"w. x 10"h.</div>
+        {% when '11-221C' %}
+          <div class="subtitle">for covers 7"w. x 11"h. to approx. 9-1/2"w. x 14"h.</div>
+        {% when '34-121' %}
+          <div class="subtitle">for Brass Rod sizes 1/32" to 3/64"</div>
+        {% when '34-122' %}
+          <div class="subtitle">for Brass Rod sizes 1/16" to 7/64"</div>
+        {% when '34-123' %}
+          <div class="subtitle">for Brass Rod sizes 3/32" to 11/64"</div>
+        {% when '34-124' %}
+          <div class="subtitle">for Brass Rod sizes 1/8" to 15/64"</div>
+        {% when '34-125' %}
+          <div class="subtitle">for Brass Rod sizes 3/16" to 23/64"</div>
+        {% when '34-111' %}
+          <div class="subtitle">for all sizes of our Stainless Steel Pins</div>
+        {% when '22-211' %}
+          <div class="subtitle">Stem (a): 1/16" x 6" &amp; Crossbar (b): 1/32" x 6"</div>
+        {% when '22-212' %}
+          <div class="subtitle">Stem (a): 3/32" x 7" &amp; Crossbar (b): 1/16" x 7"</div>
+        {% when '22-213' %}
+          <div class="subtitle">Stem (a): 1/8" x 8" &amp; Crossbar (b): 3/32" x 8"</div>
+        {% when '22-221' %}
+          <div class="subtitle">Stem (a): 1/16" x 6" &amp; each Arm (b): 1/32" x 3"</div>
+        {% when '22-222' %}
+          <div class="subtitle">Stem (a): 3/32" x 4" &amp; each Arm (b): 1/16" x 3-1/2"</div>
+        {% when '22-223' %}
+          <div class="subtitle">Stem (a): 1/8" x 5-1/2" &amp; each Arm (b): 3/32" x 4"</div>
+        {% when '22-281' %}
+          <div class="subtitle">Rod: 5/32" x 8" &amp; Straps: 1/16" x 1/4" x 3"</div>
+        {% when '22-261W' %}
+          <div class="subtitle">for 6" to 8" diam. plate</div>
+        {% when '22-262W' %}
+          <div class="subtitle">for 8" to 10" diam. plate</div>
+        {% when '22-263W' %}
+          <div class="subtitle">for 10" to 12" diam. plate</div>
+        {% when '22-261D' %}
+          <div class="subtitle">for 6" to 8" diam. plate</div>
+        {% when '22-262D' %}
+          <div class="subtitle">for 8" to 10" diam. plate</div>
+        {% when '22-263D' %}
+          <div class="subtitle">for 10" to 12" diam. plate</div>
+        {% when '05-100' %}
+          <div class="subtitle">2" x 2"</div>
+        {% when '05-160' %}
+          <div class="subtitle">2" x 3"</div>
+        {% when '05-110' %}
+          <div class="subtitle">2" x 4"</div>
+        {% when '05-120' %}
+          <div class="subtitle">2" x 6"</div>
+        {% when '05-140' %}
+          <div class="subtitle">2" x 11"</div>
+        {% when '05-150' %}
+          <div class="subtitle">4" x 7"</div>
+
+        {% else %}
+          <div class="subtitle">{{ variant.option2 }}</div>
+      {% endcase %}
       {% endif %}
     {% endif %}
   </td>
