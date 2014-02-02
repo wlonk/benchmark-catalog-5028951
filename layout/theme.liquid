@@ -80,35 +80,37 @@
     special instructions for the seller are entered on the /cart page.
     {% endcomment %}
 
-    <div class="checkout-link">
+    {% if template != 'index' %}
+      <div class="checkout-link">
+        {% comment %}
+        Older browsers don't support the HTML5 placeholder attribute, so it's a good idea to use JavaScript
+        to show and hide the placeholder text.
+        Have a look in assets/shop.js.liquid to see sample JavaScript for this.
+        {% endcomment %}
+        <form action="/search" method="get" class="search-form" role="search">
+          <input name="q" type="text" id="search-field" placeholder="Search products&hellip;" class="hint" />
+          <input type="submit" id="search-submit" value="Search" />
+        </form>
+        <a href="/cart"><span id="cart-item-count">{{ cart.item_count }} {{ cart.item_count | pluralize: 'item', 'items' }}</span>: <span id="cart-total-price">{{ cart.total_price | money }}</span> <span class="view-cart">View Cart</span></a>
+      </div>
+
       {% comment %}
-      Older browsers don't support the HTML5 placeholder attribute, so it's a good idea to use JavaScript
-      to show and hide the placeholder text.
-      Have a look in assets/shop.js.liquid to see sample JavaScript for this.
+      It would be nice if the logo was a shop setting, rather than a theme setting.
+      But for now, it is a theme setting. The shop logo is uploaded on the theme settings page.
+      Link to the theme settings page of currently published theme will always be:
+      http://www.shopify.com/admin/themes/current/settings. In the theme's files, in your instructions,
+      use a relative link: /admin/themes/current/settings.
+      To add theme settings to a theme, see this: http://wiki.shopify.com/Theme_Settings
+      Theme settings are added to http://www.shopify.com/admin/themes/current#config/settings.html
       {% endcomment %}
-      <form action="/search" method="get" class="search-form" role="search">
-        <input name="q" type="text" id="search-field" placeholder="Search products&hellip;" class="hint" />
-        <input type="submit" id="search-submit" value="Search" />
-      </form>
-      <a href="/cart"><span id="cart-item-count">{{ cart.item_count }} {{ cart.item_count | pluralize: 'item', 'items' }}</span>: <span id="cart-total-price">{{ cart.total_price | money }}</span> <span class="view-cart">View Cart</span></a>
-    </div>
 
-    {% comment %}
-    It would be nice if the logo was a shop setting, rather than a theme setting.
-    But for now, it is a theme setting. The shop logo is uploaded on the theme settings page.
-    Link to the theme settings page of currently published theme will always be:
-    http://www.shopify.com/admin/themes/current/settings. In the theme's files, in your instructions,
-    use a relative link: /admin/themes/current/settings.
-    To add theme settings to a theme, see this: http://wiki.shopify.com/Theme_Settings
-    Theme settings are added to http://www.shopify.com/admin/themes/current#config/settings.html
-    {% endcomment %}
-
-    <h1 id="site-title" role="banner">
-      <a href="/">
-        {{ 'logo.png' | asset_url | img_tag: shop.name }}
-        {{ shop.name }}
-      </a>
-    </h1>
+      <h1 id="site-title" role="banner">
+        <a href="/">
+          {{ 'logo.png' | asset_url | img_tag: shop.name }}
+          {{ shop.name }}
+        </a>
+      </h1>
+    {% endif %}
   </header>
 
   <nav role="navigation">

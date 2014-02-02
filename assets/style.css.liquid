@@ -9,11 +9,6 @@ article,aside,details,figcaption,figure,footer,header,hgroup,main,nav,section,su
 /* Hiding placeholder text on focus in webkit, thanks to http://www.kolodvor.net/2012/03/23/webkit-placeholder-attribute-behavior */
 input:focus::-webkit-input-placeholder, textarea:focus::-webkit-input-placeholder { color:transparent; }
 
-/* UGLY STYLE: Styling active links in navigation, only for demo purposes */
-.active {
-    font-style: italic;
-}
-
 /* Contain floats: nicolasgallagher.com/micro-clearfix-hack/ */
 .clearfix:before, .clearfix:after { content: ""; display: table; }
 .clearfix:after { clear: both; }
@@ -59,9 +54,10 @@ nav {
 }
 
 .nav > li > a:hover,
-.nav > li > a:focus {
+.nav > li > a:focus,
+.active {
     background-color: transparent;
-    font-style: italic;
+    font-weight: bold;
 }
 
 footer {
@@ -77,6 +73,7 @@ body {
     font-family: "Garamond", serif;
 }
 
+body,
 p {
     font-weight: 450; /* Between normal and bold. */
     font-size: 14pt;
@@ -274,4 +271,90 @@ table.oddy-test-table td.color-name {
 }
 div.oddy-test-request {
     font-style: italic;
+}
+
+div.fancy {
+    display: inline-block;
+    border: 1px solid #333;
+    padding: 1px;
+    margin-top: 20px;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    border-radius: 3px;
+}
+
+div.fancy img {
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    border-radius: 3px;
+}
+
+#welcome h1 {
+    font-weight: normal;
+    width: 560px;
+}
+
+#welcome h2 {
+    width: 475px;
+}
+
+h1 img.logo {
+    height: 32px;
+    width: 42px;
+}
+
+h1 span.benchmark {
+    letter-spacing: 0.7em;
+    color: #000;
+}
+
+h1 span.catalog {
+    text-transform: uppercase;
+    font-size: 20px;
+}
+
+h2.homepage-subtitle {
+    font-size: 18px;
+    font-weight: normal;
+    font-style: italic;
+    color: #333;
+}
+
+img.hero {
+    width: 440px;
+    height: 587px;
+}
+
+div.homepage-wrap {
+    width: 444px;
+    margin: -40px auto 0 auto;
+}
+
+#welcome header {
+    height: 80px;
+}
+
+#welcome .news {
+    margin-top: 20px;
+    color: red;
+    font-size: x-large;
+    text-align: center;
+}
+
+#welcome .container-fluid > .row-fluid {
+    margin-left: -110px;
+}
+
+#welcome article h1 {
+    font-size: 24px;
+    margin-top: 20px;
+}
+
+#welcome article h1 + p {
+    margin-top: 0;
+}
+
+#welcome article p {
+    margin-top: 10px;
+    margin-bottom: 10px;
 }
