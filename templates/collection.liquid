@@ -30,16 +30,75 @@
     </header>
 
     {% for product in collection.products %}
-      <h3 id="{{ product.handle }}" class="product-title">
+      <h3 id="{{ product.handle }}" class="product-title{% if product.vendor == 'bug' %} benchmark-exclusive{% endif %}">
       {% if product.vendor == 'bug' %}
-        {{ 'logo.png' | asset_url | img_tag }}
+        <img src="{{ 'logo.png' | asset_url }}" alt="logo" title="logo" class="benchmark-exclusive-logo">
       {% endif %}
         {{ product.title }}
         {% case product.title %}
           {% when 'Polyethylene Strap' %}
             <div class="product-links">
-              <a class="product-tip-link" href="#">TIP</a>
-              <a class="product-oddy-link" href="#">Oddy test results</a>
+              <a href="#">TIP</a>
+              <a href="#">Oddy test results</a>
+            </div>
+          {% when 'Sueded Polyethylene' %}
+            <div class="product-links">
+              <a href="/pages/sueded-polyethylene-padding-oddy-test-results" title="sueded polyethylene padding Oddy test">Oddy test results</a>
+            </div>
+          {% when 'Polyolefin 2:1 Heat-shrink Tubing' %}
+            <div class="product-links">
+              <a href="/pages/tip-heat-shrink-tubing">TIP</a>
+              <a href="/pages/polyolefin-2-1-heat-shrink-tubing-oddy-test-results" title="polyolefin 2:1 heat shrink tubing Oddy test">Oddy test results</a>
+            </div>
+          {% when 'Felt' %}
+            <div class="product-links">
+              <a href="/pages/tip-cutting-felt">TIP</a>
+              <a href="/pages/oddyfelt" title="felt Oddy test">Oddy test results</a>
+            </div>
+          {% when 'Felt Tapes' %}
+            <div class="product-links">
+              <a href="/pages/felt-tape-oddy-test-results-white-and-black" title="felt tape Oddy test">Oddy test results</a>
+            </div>
+          {% when 'Flannel' %}
+            <div class="product-links">
+              <a href="/pages/muslin-and-flannel-oddy-test-results" title="muslin and flannel Oddy test">Oddy test results</a>
+            </div>
+          {% when 'Muslin' %}
+            <div class="product-links">
+              <a href="/pages/muslin-and-flannel-oddy-test-results" title="muslin and flannel Oddy test">Oddy test results</a>
+            </div>
+          {% when 'Polyester Stockinette' %}
+            <div class="product-links">
+              <a href="/pages/white-stockinette-oddy-test-results" title="white stockinette Oddy test">White Oddy test results</a>
+              <a href="/pages/black-stockinette-oddy-test-results" title="black stockinette Oddy test">Black Oddy test results</a>
+            </div>
+          {% when 'Linens' %}
+            <div class="product-links">
+              <a href="/pages/linen-fabric-oddy-test-results" title="linen Oddy test">Oddy test results</a>
+            </div>
+          {% when 'Plain Weave Fabric' %}
+            <div class="product-links">
+              <a href="/pages/plain-weave-oddy-test-results" title="plain weave Oddy test">Oddy test results</a>
+            </div>
+          {% when 'Teflon TFE 4:1 Heat-shrink Tubing' %}
+            <div class="product-links">
+              <a href="/pages/tfe-teflon-4-1-heat-shrink-tubing-oddy-test-results" title="teflon 4:1 Oddy test">Oddy test results</a>
+            </div>
+          {% when 'Headless Stainless Steel Pins' %}
+            <div class="product-links">
+              <a href="/pages/tip-pin-padding" title="padding suggestions for pins">TIP</a>
+            </div>
+          {% when 'Tiny Drill Bits' %}
+            <div class="product-links">
+              <a href="/pages/tip-drill-bit" title="drill bit tip">TIP</a>
+            </div>
+          {% when 'Drill Gauges' %}
+            <div class="product-links">
+              <a href="/pages/tip-use-of-drill-gauges-for-drilling" title="another good use for gauges">TIP</a>
+            </div>
+          {% when 'Pinning Pliers' %}
+            <div class="product-links">
+              <a href="/pages/tip-pinning-pliers" title="how to use pinning pliers">TIP</a>
             </div>
         {% endcase %}
       </h3>
@@ -72,7 +131,11 @@
               {% when 'Almond blend' %}
                 Almond, 51% linen + 49% cotton, 55" w.
               {% when 'Black' %}
-                Black, 100% linen, 60" w.
+                {% if product.title == 'Linens' %}
+                  Black, 100% linen, 60" w.
+                {% else %}
+                  {{ current_subcategory }}
+                {% endif %}
               {% when 'Oatmeal blend' %}
                 Oatmeal, 60% linen + 40% cotton, 58" w.
               {% when 'Oatmeal' %}

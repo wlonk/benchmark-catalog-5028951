@@ -85,7 +85,7 @@
           {% else %}
             {{ 'Log in' | customer_login_link }}
             {% if shop.customer_accounts_optional %}
-            or {{ 'Create an account' | customer_register_link }}
+            | {{ 'Create an account' | customer_register_link }}
             {% endif %}
           {% endif %}
         </div>
