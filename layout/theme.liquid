@@ -61,19 +61,6 @@
 
   <header>
 
-    {% if shop.customer_accounts_enabled %}
-    <p class="customer-links">
-      {% if customer %}
-        Logged in as <a href="/account">{{ customer.first_name }}</a> · {{ 'Log out' | customer_logout_link }}
-      {% else %}
-        {{ 'Log in' | customer_login_link }}
-        {% if shop.customer_accounts_optional %}
-        or {{ 'Create an account' | customer_register_link }}
-        {% endif %}
-      {% endif %}
-    </p>
-    {% endif %}
-
     {% comment %}
     Note on checkout link: it is a good idea to avoid linking to /checkout directly because shops that use
     Paypal Express Checkout and/or Google Checkout have special checkout buttons on the /cart page. Also,
@@ -92,6 +79,16 @@
           <input type="submit" id="search-submit" value="Search" />
         </form>
         <a href="/cart"><span id="cart-item-count">{{ cart.item_count }} {{ cart.item_count | pluralize: 'item', 'items' }}</span>: <span id="cart-total-price">{{ cart.total_price | money }}</span> <span class="view-cart">View Cart</span></a>
+        <div class="customer-links">
+          {% if customer %}
+            <a href="/account">{{ customer.first_name }}</a> &bullet; {{ 'Log out' | customer_logout_link }}
+          {% else %}
+            {{ 'Log in' | customer_login_link }}
+            {% if shop.customer_accounts_optional %}
+            or {{ 'Create an account' | customer_register_link }}
+            {% endif %}
+          {% endif %}
+        </div>
       </div>
 
       {% comment %}
@@ -106,8 +103,9 @@
 
       <h1 id="site-title" role="banner">
         <a href="/">
-          {{ 'logo.png' | asset_url | img_tag: shop.name }}
-          {{ shop.name }}
+          <img class="logo" src="{{ 'logo.png' | asset_url }}" alt="Benchmark logo">
+          <span class="benchmark">Benchmark</span>
+          <span class="catalog">Catalog</span>
         </a>
       </h1>
     {% endif %}
@@ -151,7 +149,18 @@
         Else, we have a template file to render.
         That's what content_for_layout is for.
         {% endcomment %}
-        {{ content_for_layout }}
+            {% include 'lockdown' %}
+            {% if allowed %}
+                {{ content_for_layout }}
+            {% else %}
+                {% if template contains 'cart' %}
+                    {{ content_for_layout }}
+                {% elsif customer %}
+                    {% include 'lock-message' %}
+                {% else %}
+                    <meta content="0; url=/account/login?checkout_url={{ return_url }}" http-equiv="refresh" />
+                {% endif %}
+            {% endif %}
         {% endif %}
       </div>
 

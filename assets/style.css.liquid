@@ -29,19 +29,19 @@ ul.grid li.last-in-row { margin-right: 0; }
 
 #site-title {
     font-size: 2em;
-    font-weight: bold;
     line-height: 1.5;
     margin-left: 40px; /* Same as the padding-left of the UL below on the page. */
     padding: 0;
 }
 
 .container-fluid {
-    margin-left: 220px; /* Width of left sidebar plus margin space. */
+    margin-left: 240px; /* Width of left sidebar plus margin space. */
 }
 
 nav {
-    width: 220px;
+    width: 240px;
     position: fixed;
+    margin-top: 22px;
 }
 
 .nav li {
@@ -90,6 +90,39 @@ h1,
 h2,
 h3 {
     margin-bottom: 0;
+    font-weight: normal;
+}
+
+h1 {
+    font-size: 32px;
+}
+
+h3 {
+    font-size: 21.3px;
+}
+
+dt {
+    display: inline;
+    margin-right: 0.5em;
+}
+
+dd {
+    display: inline;
+    margin: 0;
+}
+
+dd:after {
+    content: " ";
+    display: block;
+    margin-bottom: 15px;
+}
+
+#oddy-tests #main li {
+    margin-bottom: 10px;
+}
+
+[id*="oddy"] table {
+    width: 80%;
 }
 
 a:hover {
@@ -246,11 +279,6 @@ form.search-form input[type=submit] {
     }
 }
 
-#site-title img {
-    width: 30px;
-    height: 23px;
-}
-
 .product-title img {
     width: 17px;
     height: 13px;
@@ -265,7 +293,8 @@ div.oddy-test-date {}
 .oddy-header {
     color: #ff0000;
 }
-table.oddy-test-table td.color-name {
+table.oddy-test-table td.color-name,
+.color-name {
     font-style: italic;
     color: #008080;
 }
@@ -288,12 +317,15 @@ div.fancy img {
 }
 
 #welcome h1 {
-    font-weight: normal;
     width: 560px;
 }
 
 #welcome h2 {
     width: 475px;
+}
+
+h1 {
+    font-weight: normal;
 }
 
 h1 img.logo {
@@ -340,7 +372,7 @@ div.homepage-wrap {
 }
 
 #welcome .container-fluid > .row-fluid {
-    margin-left: -110px;
+    margin-left: -120px;
 }
 
 #welcome article h1 {
@@ -359,4 +391,18 @@ div.homepage-wrap {
 
 th {
     text-align: left;
+}
+
+#recover-password {
+    display: none;
+}
+
+#customer-login,
+#recover-password {
+    width: 400px;
+    float: left;
+}
+
+.action-bottom {
+    margin-top: 20px;
 }
