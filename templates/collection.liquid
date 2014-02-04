@@ -23,25 +23,32 @@
 
   <section class="diagonal-divider clearfix">
     <header class="section-details clearfix">
-      <h1 class="section-title">{{ collection.title }}</h1>
+      <h2 class="section-title">{{ collection.title }}</h2>
       {% if collection.description != empty %}
         <div class="description content">{{ collection.description }}</div>
       {% endif %}
     </header>
 
     {% for product in collection.products %}
-      <h2 id="{{ product.handle }}" class="product-title">
+      <h3 id="{{ product.handle }}" class="product-title">
       {% if product.vendor == 'bug' %}
         {{ 'logo.png' | asset_url | img_tag }}
       {% endif %}
         {{ product.title }}
-      </h2>
+        {% case product.title %}
+          {% when 'Polyethylene Strap' %}
+            <div class="product-links">
+              <a class="product-tip-link" href="#">TIP</a>
+              <a class="product-oddy-link" href="#">Oddy test results</a>
+            </div>
+        {% endcase %}
+      </h3>
 
       <div class="description content">
         {{ product.description }}
       </div>
 
-      <table>
+      <table class="products">
         <tbody>
         {% assign current_subcategory = '' %}
         {% for variant in product.variants %}
@@ -49,7 +56,7 @@
             </tbody>
             </table>
             {% assign current_subcategory = variant.option1 %}
-            <h3>
+            <h4>
               {% case current_subcategory %}
               {% when 'Just the Plates' %}
                 Just Quarter-turn plates with which to convert your "regular" Horizontal Butterfly Bookmount:
@@ -77,8 +84,8 @@
               {% else %}
                 {{ current_subcategory }}
               {% endcase %}
-            </h3>
-            <table>
+            </h4>
+            <table class="products">
             <tbody>
             {% include 'sku-row' %}
           {% else %}

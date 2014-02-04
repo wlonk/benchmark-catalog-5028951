@@ -79,16 +79,23 @@ p {
     font-size: 14pt;
 }
 
+p {
+    margin-top: 13px;
+    margin-bottom: 13px;
+}
+
 h1,
 h2,
 h3,
+h4,
 a {
     color: #008080;
 }
 
 h1,
 h2,
-h3 {
+h3,
+h4 {
     margin-bottom: 0;
     font-weight: normal;
 }
@@ -97,8 +104,18 @@ h1 {
     font-size: 32px;
 }
 
+h2 {
+    color: #007a7a;
+}
+
 h3 {
+    margin-top: 30px;
     font-size: 21.3px;
+}
+
+h4 {
+    font-size: 18.7px;
+    margin-bottom: 10px;
 }
 
 dt {
@@ -117,6 +134,18 @@ dd:after {
     margin-bottom: 15px;
 }
 
+.product-links {
+    float: right;
+    text-align: right;
+    font-style: italic;
+}
+
+.product-tip-link {
+}
+.product-oddy-link {
+    margin-left: 40px;
+}
+
 #oddy-tests #main li {
     margin-bottom: 10px;
 }
@@ -129,6 +158,10 @@ a:hover {
     text-decoration: none;
 }
 
+table.products {
+    margin-top: 20px;
+}
+
 table {
     width: 100%;
 }
@@ -138,13 +171,13 @@ thead {
     font-style: italic;
 }
 
-tr {
-    margin-bottom: 5px;
-}
-
 td {
     padding: 2px;
     vertical-align: top;
+}
+
+.products td {
+    padding-bottom: 10px;
 }
 
 .product-table-sku {
@@ -280,8 +313,8 @@ form.search-form input[type=submit] {
 }
 
 .product-title img {
-    width: 17px;
-    height: 13px;
+    width: 24px;
+    height: 18px;
     vertical-align: middle;
 }
 
