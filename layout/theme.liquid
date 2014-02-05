@@ -23,6 +23,15 @@
   <link rel="canonical" href="{{ canonical_url }}" />
 
   <meta name="viewport" content="width=device-width" />
+  {% assign display_any_content_at_all_really = true %}
+  {% if collection.handle == 'all' %}
+    <meta content="0; url=/" http-equiv="refresh" />
+    {% assign display_any_content_at_all_really = false %}
+  {% endif %}
+  {% if product %}
+    <meta content="0; url=/collections/{{ product.collections[0].handle }}#{{ product.handle }}" http-equiv="refresh" />
+    {% assign display_any_content_at_all_really = false %}
+  {% endif %}
 
   {{ content_for_header }}
 
@@ -155,18 +164,20 @@
         Else, we have a template file to render.
         That's what content_for_layout is for.
         {% endcomment %}
-            {% include 'lockdown' %}
+          {% include 'lockdown' %}
+            {% if display_any_content_at_all_really %}
             {% if allowed %}
-                {{ content_for_layout }}
+              {{ content_for_layout }}
             {% else %}
-                {% if template contains 'cart' %}
-                    {{ content_for_layout }}
-                {% elsif customer %}
-                    {% include 'lock-message' %}
-                {% else %}
-                    <meta content="0; url=/account/login?checkout_url={{ return_url }}" http-equiv="refresh" />
-                {% endif %}
+              {% if template contains 'cart' %}
+                {{ content_for_layout }}
+              {% elsif customer %}
+                {% include 'lock-message' %}
+              {% else %}
+                <meta content="0; url=/account/login?checkout_url={{ return_url }}" http-equiv="refresh" />
+              {% endif %}
             {% endif %}
+          {% endif %}
         {% endif %}
       </div>
 
