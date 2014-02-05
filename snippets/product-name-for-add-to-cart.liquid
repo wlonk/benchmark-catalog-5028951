@@ -1,8 +1,22 @@
-{{ product.title | escape }}:
+{% assign is_there_a_title = false %}
 {% if product.options[0] == 'Title' %}
-    {{ variant.option1 | escape }}
+    {% if variant.option1 != 'Default Title' %}
+        {% assign is_there_a_title = true %}
+    {% endif %}
 {% elsif product.options[1] == 'Title' %}
-    {{ variant.option1 | escape }}: {{ variant.option2 | escape }}
+    {% if variant.option2 != 'Default Title' %}
+        {% assign is_there_a_title = true %}
+    {% endif %}
 {% else %}
-    {{ variant.title | escape }}
+    {% assign is_there_a_title = true %}
+{% endif %}
+
+{{ product.title | escape }}{% if is_there_a_title %}:
+    {% if product.options[0] == 'Title' %}
+        {{ variant.option1 | escape }}
+    {% elsif product.options[1] == 'Title' %}
+        {{ variant.option1 | escape }}: {{ variant.option2 | escape }}
+    {% else %}
+        {{ variant.title | escape }}
+    {% endif %}
 {% endif %}

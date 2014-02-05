@@ -40,13 +40,26 @@
       <tr>
         <td class="cart-item">
           <a href="{{ item.product.collections[0].url }}#{{ item.product.handle }}">
-            {{ item.product.title }}:
+            {% assign is_there_a_title = false %}
             {% if item.product.options[0] == 'Title' %}
-                {{ item.variant.option1 | escape }}
+              {% if item.variant.option1 != 'Default Title' %}
+                {% assign is_there_a_title = true %}
+              {% endif %}
             {% elsif item.product.options[1] == 'Title' %}
-                {{ item.variant.option1 | escape }}: {{ item.variant.option2 | escape }}
+              {% if item.variant.option2 != 'Default Title' %}
+                {% assign is_there_a_title = true %}
+              {% endif %}
             {% else %}
-                {{ item.variant.title }}
+                {% assign is_there_a_title = true %}
+            {% endif %}
+            {{ item.product.title }}{% if is_there_a_title %}:
+              {% if item.product.options[0] == 'Title' %}
+                  {{ item.variant.option1 | escape }}
+              {% elsif item.product.options[1] == 'Title' %}
+                  {{ item.variant.option1 | escape }}: {{ item.variant.option2 | escape }}
+              {% else %}
+                  {{ item.variant.title }}
+              {% endif %}
             {% endif %}
           </a>
           {% comment %}
