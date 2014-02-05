@@ -38,8 +38,8 @@
         {% case product.title %}
           {% when 'Polyethylene Strap' %}
             <div class="product-links">
-              <a href="#">TIP</a>
-              <a href="#">Oddy test results</a>
+              <a class="tip-link" href="/pages/tip-poly-strap-uses">TIP</a>
+              <a href="/pages/polyethylene-strap-oddy-test-results">Oddy test results</a>
             </div>
           {% when 'Sueded Polyethylene' %}
             <div class="product-links">
@@ -47,12 +47,12 @@
             </div>
           {% when 'Polyolefin 2:1 Heat-shrink Tubing' %}
             <div class="product-links">
-              <a href="/pages/tip-heat-shrink-tubing">TIP</a>
+              <a class="tip-link" href="/pages/tip-heat-shrink-tubing">TIP</a>
               <a href="/pages/polyolefin-2-1-heat-shrink-tubing-oddy-test-results" title="polyolefin 2:1 heat shrink tubing Oddy test">Oddy test results</a>
             </div>
           {% when 'Felt' %}
             <div class="product-links">
-              <a href="/pages/tip-cutting-felt">TIP</a>
+              <a class="tip-link" href="/pages/tip-cutting-felt">TIP</a>
               <a href="/pages/oddyfelt" title="felt Oddy test">Oddy test results</a>
             </div>
           {% when 'Felt Tapes' %}
@@ -86,19 +86,19 @@
             </div>
           {% when 'Headless Stainless Steel Pins' %}
             <div class="product-links">
-              <a href="/pages/tip-pin-padding" title="padding suggestions for pins">TIP</a>
+              <a class="tip-link" href="/pages/tip-pin-padding" title="padding suggestions for pins">TIP</a>
             </div>
           {% when 'Tiny Drill Bits' %}
             <div class="product-links">
-              <a href="/pages/tip-drill-bit" title="drill bit tip">TIP</a>
+              <a class="tip-link" href="/pages/tip-drill-bit" title="drill bit tip">TIP</a>
             </div>
           {% when 'Drill Gauges' %}
             <div class="product-links">
-              <a href="/pages/tip-use-of-drill-gauges-for-drilling" title="another good use for gauges">TIP</a>
+              <a class="tip-link" href="/pages/tip-use-of-drill-gauges-for-drilling" title="another good use for gauges">TIP</a>
             </div>
           {% when 'Pinning Pliers' %}
             <div class="product-links">
-              <a href="/pages/tip-pinning-pliers" title="how to use pinning pliers">TIP</a>
+              <a class="tip-link" href="/pages/tip-pinning-pliers" title="how to use pinning pliers">TIP</a>
             </div>
         {% endcase %}
       </h3>
@@ -107,13 +107,17 @@
         {{ product.description }}
       </div>
 
-      <table class="products">
-        <tbody>
+      {% if product.options[0] != 'Style' %}
+        <table class="products">
+          <tbody>
+      {% endif %}
         {% assign current_subcategory = '' %}
         {% for variant in product.variants %}
           {% if product.options[0] == 'Style' and variant.option1 != current_subcategory %}
+            {% if current_subcategory != '' %}
             </tbody>
             </table>
+            {% endif %}
             {% assign current_subcategory = variant.option1 %}
             <h4>
               {% case current_subcategory %}

@@ -1,7 +1,7 @@
 jQuery(function($){
 
   $('html').removeClass('no-js');
-                    
+
   /* Placeholder JS */
   /*==========================*/
 
@@ -20,7 +20,7 @@ jQuery(function($){
     if ($(this).val() === '') {
       $(this).val($(this).attr('placeholder')).addClass('hint');
     }
-  });                    
+  });
 
   /* Form validation JS */
   /*==========================*/
@@ -34,6 +34,20 @@ jQuery(function($){
       $(this).val('').removeClass('hint');
     });
     return true;
+  });
+
+  $('.tip-link').click(function (evt) {
+    evt.preventDefault();
+    var w = 800;
+    var h = 500;
+    var left = (screen.width/2)-(w/2);
+    var top = (screen.height/2)-(h/2);
+    var href = evt.target.href;
+    window.open(
+      href,
+      'benchmark-tips',
+      'toolbar=no,location=no,directories=no,status=no,menubar=no,scrollbars=no,resizable=no,copyhistory=no,width='+w+',height='+h+',top='+top+',left='+left
+    )
   });
 
 });
