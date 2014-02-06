@@ -93,3 +93,11 @@ h1 span.subtitle {
 #footer {
     background-image: none;
 }
+
+label[for=billing_address_phone]:after,
+label[for=shipping_address_phone]:after {
+  content: '*';
+  padding-left: 3px;
+  display: inline;
+  color: red;
+}
