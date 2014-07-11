@@ -4,7 +4,7 @@
 
   <div class="page-header clearfix">
     <h1 id="page-title">
-      Manage Account Address
+      Manage Addresses
       <div id="page-actions" class="pull-right">
         <a href="#" class="action_add note btn" onclick="Shopify.CustomerAddress.toggleNewForm(); return false;">Add New Address</a>
       </div>
@@ -13,13 +13,13 @@
 
   <div id="add_address" class="customer_address edit_address" style="display:none;">
     {% form 'customer_address', customer.new_address %}
-      <h2 id="add_address_title">
+      <h3 id="add_address_title">
         Add a new address
         <div class="action-bottom pull-right">
           <input class="btn" type="submit" value="Add Address" />
-          <span class="note"> or <a href="#" onclick="Shopify.CustomerAddress.toggleNewForm(); return false;" class="btn">Cancel</a></span>
+          <a href="#" onclick="Shopify.CustomerAddress.toggleNewForm(); return false;" class="btn">Cancel</a>
         </div>
-      </h2>
+      </h3>
       <label for="address_first_name_new">First Name</label>
       <input type="text" id="address_first_name_new" class="address_form input-block-level" name="address[first_name]" value="{{form.first_name}}" size="40" />
       <label for="address_last_name_new">Last Name</label>
@@ -55,11 +55,10 @@
     <div class="address_table">
       <div id="view_address_{{address.id}}" class="customer_address">
         <h3 class="address_title">
-          {{ address.street }}
           {% if address == customer.default_address %}<span class="default_address note">(Default Address)</span>{% endif %}
           <span class="address_actions pull-right">
-            <span class=" btn action_edit">{{ "edit" | edit_customer_address_link: address.id }}</span>
-            <span class=" btn action_delete">{{ "delete" | delete_customer_address_link: address.id }}</span>
+            <span class="btn action_edit">{{ "edit" | edit_customer_address_link: address.id }}</span>
+            <span class="btn action_delete">{{ "delete" | delete_customer_address_link: address.id }}</span>
           </span>
         </h3>
         <div class="view_address">
@@ -74,10 +73,13 @@
       </div>
       <div id="edit_address_{{address.id}}" class="customer_address edit_address" style="display:none;">
         {% form 'customer_address', address %}
-          <div class="action-bottom pull-right">
-            <input class="btn" type="submit" value="Update Address" />
-            <span class="note"> or <a href="#" onclick="Shopify.CustomerAddress.toggleForm({{form.id}}); return false;" class="btn">Cancel</a></span>
-          </div>
+          <h3>
+            Edit Address
+            <div class="action-bottom pull-right">
+              <input class="btn" type="submit" value="Update Address" />
+              <a href="#" onclick="Shopify.CustomerAddress.toggleForm({{form.id}}); return false;" class="btn">Cancel</a>
+            </div>
+          </h3>
           <label for="address_first_name_{{form.id}}">First Name</label>
           <input type="text" id="address_first_name_{{form.id}}" class="address_form input-block-level" name="address[first_name]" value="{{form.first_name}}" size="40" />
           <label for="address_last_name_{{form.id}}">Last Name</label>

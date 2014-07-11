@@ -23,7 +23,8 @@
       <div class="address note">
         <p>{{ order.billing_address.name }}</p>
         <p>{{ order.billing_address.company }}</p>
-        <p>{{ order.billing_address.street }}</p>
+        <p>{{ order.billing_address.address1 }}</p>
+        <p>{{ order.billing_address.address2 }}</p>
         <p>{{ order.billing_address.city }}, {{ order.billing_address.province }}</p>
         <p>{{ order.billing_address.country }} {{ order.billing_address.zip }}</p>
         <p>{{ order.billing_address.phone }}</p>
@@ -35,7 +36,8 @@
         <div class="address note">
           <p>{{ order.shipping_address.name }}</p>
           <p>{{ order.shipping_address.company }}</p>
-          <p>{{ order.shipping_address.street }}</p>
+          <p>{{ order.shipping_address.address1 }}</p>
+          <p>{{ order.billing_address.address2 }}</p>
           <p>{{ order.shipping_address.city }}, {{ order.shipping_address.province }}</p>
           <p>{{ order.shipping_address.country }} {{ order.shipping_address.zip }}</p>
           <p>{{ order.shipping_address.phone }}</p>
@@ -49,20 +51,40 @@
   <table id="order_details">
     <thead>
       <tr>
-        <th>Product</th>
-        <th>SKU</th>
+        <th>Item #</th>
+        <th>Description</th>
         <th class="money">Price</th>
-        <th class="quantity">Quantity</th>
+        <th class="quantity">Qty</th>
         <th class="total money">Total</th>
       </tr>
     </thead>
     <tbody>
       {% for line_item in order.line_items %}
       <tr id="{{ line_item.id }}" class="{% cycle 'odd', 'even' %}">
-        <td class="product">
-          {{ line_item.title | link_to: line_item.product.url }}
-        </td>
         <td class="sku note">{{ line_item.sku }}</td>
+        <td class="product">
+          {% assign is_there_a_title = false %}
+          {% if line_item.product.options[0] == 'Title' %}
+            {% if line_item.variant.option1 != 'Default Title' %}
+              {% assign is_there_a_title = true %}
+            {% endif %}
+          {% elsif line_item.product.options[1] == 'Title' %}
+            {% if line_item.variant.option2 != 'Default Title' %}
+              {% assign is_there_a_title = true %}
+            {% endif %}
+          {% else %}
+              {% assign is_there_a_title = true %}
+          {% endif %}
+          {{ line_item.product.title }}{% if is_there_a_title %}:
+            {% if line_item.product.options[0] == 'Title' %}
+                {{ line_item.variant.option1 | escape }}
+            {% elsif line_item.product.options[1] == 'Title' %}
+                {{ line_item.variant.option1 | escape }}: {{ line_item.variant.option2 | escape }}
+            {% else %}
+                {{ line_item.variant.title }}
+            {% endif %}
+          {% endif %}
+        </td>
         <td class="money">{{ line_item.price | money }}</td>
         <td class="quantity">{{ line_item.quantity }}</td>
         <td class="total money">{{ line_item.quantity | times: line_item.price | money }}</td>
@@ -77,7 +99,7 @@
 
       {% for shipping_method in order.shipping_methods %}
       <tr class="order_summary note">
-        <td colspan="4">Shipping ({{ shipping_method.title }}):</td>
+        <td colspan="4">s/h ({{ shipping_method.title }}):</td>
         <td class="total money">{{ shipping_method.price | money }}</td>
       </tr>
       {% endfor %}
