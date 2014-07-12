@@ -18,7 +18,7 @@
   {% endif %}
 
   <div id="order_address" class="group row">
-    <div id="order_payment" class="span6">
+    <div id="order_payment" class="span4 offset2">
       <h2 class="order_section_title">Billing Address</h2>
       <div class="address note">
         <p>{{ order.billing_address.name }}</p>
@@ -31,7 +31,7 @@
       </div>
     </div>
     {% if order.shipping_address %}
-      <div id="order_shipping" class="span6">
+      <div id="order_shipping" class="span4">
         <h2 class="order_section_title">Shipping Address</h2>
         <div class="address note">
           <p>{{ order.shipping_address.name }}</p>

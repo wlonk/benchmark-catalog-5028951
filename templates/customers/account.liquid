@@ -8,23 +8,14 @@
 
   <div id="customer_sidebar">
     <div id="customer_detail" class="group">
-      <h4 class="name">{{ customer.name }}</h4>
-      <p class="email note">{{ customer.email }}</p>
-      <div class="address note">
-        {% if customer.default_address != nil %}
-          <p>{{ customer.default_address.address1 }}</p>
-          {% if customer.default_address.address2 != "" %}
-            <p>{{ customer.default_address.address2 }}</p>
-          {% endif %}
-          <p>{{ customer.default_address.city}}, {% if address.province_code %}{{customer.default_address.province_code}}, {% endif %}{{customer.default_address.country}}</p>
-          <p>{{ customer.default_address.zip}}</p>
-          <p>{{ customer.default_address.phone }}</p>
-        {% endif %}
-        <a id="view_address" href="/account/addresses">View Addresses ({{ customer.addresses_count }})</a>
-      </div>
-
+      <h4 class="name">
+        {{ customer.name }}
+        <a id="view_address" class="pull-right btn" href="/account/addresses">View Addresses ({{ customer.addresses_count }})</a>
+      </h4>
     </div>
   </div>
+
+  <hr class="address-divider">
 
   <div id="customer_orders">
     {% if customer.orders.size != 0 %}
