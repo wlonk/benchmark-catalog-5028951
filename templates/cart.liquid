@@ -21,11 +21,12 @@
 
     <thead>
       <tr>
-        <th class="cart-item">Item</th>
+        <th class="cart-sku">Item #</th>
+        <th class="cart-item">Description</th>
         <th class="cart-price">Price</th>
-        <th class="cart-quantity">Quantity</th>
+        <th class="cart-quantity">Qty</th>
         <th class="cart-total">Total</th>
-        <th class="cart-remove">&nbsp;</th>
+        <th class="cart-remove"></th>
       </tr>
     </thead>
 
@@ -38,6 +39,9 @@
       {% endcomment %}
 
       <tr>
+        <td class="cart-sku">
+          {{ item.sku }}
+        </td>
         <td class="cart-item">
           <a href="{{ item.product.collections[0].url }}#{{ item.product.handle }}">
             {% assign is_there_a_title = false %}
