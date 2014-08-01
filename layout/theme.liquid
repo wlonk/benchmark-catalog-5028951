@@ -70,49 +70,49 @@
 
   <header>
 
+  {% comment %}
+  Note on checkout link: it is a good idea to avoid linking to /checkout directly because shops that use
+  Paypal Express Checkout and/or Google Checkout have special checkout buttons on the /cart page. Also,
+  special instructions for the seller are entered on the /cart page.
+  {% endcomment %}
+
+  {% if page.url contains 'tip' %}
+  {% else %}
+    <div class="checkout-link">
+      {% comment %}
+      Older browsers don't support the HTML5 placeholder attribute, so it's a good idea to use JavaScript
+      to show and hide the placeholder text.
+      Have a look in assets/shop.js.liquid to see sample JavaScript for this.
+      {% endcomment %}
+      <form action="/search" method="get" class="search-form" role="search">
+        <input name="q" type="text" id="search-field" placeholder="Search products&hellip;" class="hint" />
+        <input type="submit" id="search-submit" value="Search" />
+      </form>
+      <a href="/cart"><span id="cart-item-count">{{ cart.item_count }} {{ cart.item_count | pluralize: 'item', 'items' }}</span>: <span id="cart-total-price">{{ cart.total_price | money }}</span> <span class="view-cart">View Cart</span></a>
+      <div class="customer-links">
+        {% if customer %}
+          <a href="/account">{{ customer.first_name }}</a> &bullet; {{ 'Log out' | customer_logout_link }}
+        {% else %}
+          {{ 'Log in' | customer_login_link }}
+          {% if shop.customer_accounts_optional %}
+          | {{ 'Create an account' | customer_register_link }}
+          {% endif %}
+        {% endif %}
+      </div>
+    </div>
+  {% endif %}
+
     {% comment %}
-    Note on checkout link: it is a good idea to avoid linking to /checkout directly because shops that use
-    Paypal Express Checkout and/or Google Checkout have special checkout buttons on the /cart page. Also,
-    special instructions for the seller are entered on the /cart page.
+    It would be nice if the logo was a shop setting, rather than a theme setting.
+    But for now, it is a theme setting. The shop logo is uploaded on the theme settings page.
+    Link to the theme settings page of currently published theme will always be:
+    http://www.shopify.com/admin/themes/current/settings. In the theme's files, in your instructions,
+    use a relative link: /admin/themes/current/settings.
+    To add theme settings to a theme, see this: http://wiki.shopify.com/Theme_Settings
+    Theme settings are added to http://www.shopify.com/admin/themes/current#config/settings.html
     {% endcomment %}
 
     {% if template != 'index' %}
-      {% if page.url contains 'tip' %}
-      {% else %}
-      <div class="checkout-link">
-        {% comment %}
-        Older browsers don't support the HTML5 placeholder attribute, so it's a good idea to use JavaScript
-        to show and hide the placeholder text.
-        Have a look in assets/shop.js.liquid to see sample JavaScript for this.
-        {% endcomment %}
-        <form action="/search" method="get" class="search-form" role="search">
-          <input name="q" type="text" id="search-field" placeholder="Search products&hellip;" class="hint" />
-          <input type="submit" id="search-submit" value="Search" />
-        </form>
-        <a href="/cart"><span id="cart-item-count">{{ cart.item_count }} {{ cart.item_count | pluralize: 'item', 'items' }}</span>: <span id="cart-total-price">{{ cart.total_price | money }}</span> <span class="view-cart">View Cart</span></a>
-        <div class="customer-links">
-          {% if customer %}
-            <a href="/account">{{ customer.first_name }}</a> &bullet; {{ 'Log out' | customer_logout_link }}
-          {% else %}
-            {{ 'Log in' | customer_login_link }}
-            {% if shop.customer_accounts_optional %}
-            | {{ 'Create an account' | customer_register_link }}
-            {% endif %}
-          {% endif %}
-        </div>
-      </div>
-      {% endif %}
-
-      {% comment %}
-      It would be nice if the logo was a shop setting, rather than a theme setting.
-      But for now, it is a theme setting. The shop logo is uploaded on the theme settings page.
-      Link to the theme settings page of currently published theme will always be:
-      http://www.shopify.com/admin/themes/current/settings. In the theme's files, in your instructions,
-      use a relative link: /admin/themes/current/settings.
-      To add theme settings to a theme, see this: http://wiki.shopify.com/Theme_Settings
-      Theme settings are added to http://www.shopify.com/admin/themes/current#config/settings.html
-      {% endcomment %}
-
       <h1 id="site-title" role="banner">
         <a href="/">
           <img class="logo" src="{{ 'logo.png' | asset_url }}" alt="Benchmark logo">
