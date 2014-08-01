@@ -1,0 +1,63 @@
+{% layout settings.customer_layout %}
+
+<div id="customer-accounts" class="content clearfix">
+
+  <!-- Create Customer -->
+  <div id="customer-register">
+
+    <div class="page-header">
+      <h1>Create Account</h1>
+    </div>
+
+    {% form 'create_customer' %}
+    {{ form.errors | default_errors | replace: "If you've forgotten your password, you can", "An account with that email already exists. If you've forgotten your password, you can"  }}
+
+    <div id="div_first_name" class="clearfix control-group form-row">
+      <label for="first_name" class="login">First Name</label>
+      <input type="text" value="{{ form.first_name }}" name="customer[first_name]" id="first_name" class="large" size="30" />
+    </div>
+
+    <div id="div_last_name" class="clearfix control-group form-row">
+      <label for="last_name" class="login">Last Name</label>
+      <input type="text" value="{{ form.last_name }}" name="customer[last_name]" id="last_name" class="large{% if form.errors contains 'last_name' %} error{% endif %}" size="30" />
+    </div>
+
+    <div id="div_email" class="clearfix control-group form-row">
+      <label for="email" class="login">Email Address</label>
+      <input type="email" value="{{ form.email }}" name="customer[email]" id="email" class="large{% if form.errors contains 'email' %} error{% endif %}" size="30" />
+    </div>
+
+    <div id="div_password" class="clearfix control-group form-row">
+      <label for="password" class="login">Password</label>
+      <input type="password" value="" name="customer[password]" id="password" class="large password{% if form.errors contains 'password' %} error{% endif %}" size="30" />
+    </div>
+
+    <div id="div_confirm_password" class="clearfix control-group form-row">
+      <label for="password" class="login">Confirm password</label>
+      <input type="password" value="" name="customer[confirm_password]" id="confirm_password" class="large password{% if form.errors contains 'password' %} error{% endif %}" size="30" />
+    </div>
+
+    <div class="action_bottom">
+      <input class="btn" type="submit" value="Create" />
+    </div>
+    {% endform %}
+
+  </div><!-- /#customer-register -->
+
+</div>
+
+<script type="text/javascript">
+  $(document).ready(function () {
+    $('#create_customer').submit(function () {
+      var password = $('#password').val();
+      var confirm_password = $('#confirm_password').val();
+      var ret = password == confirm_password;
+      if (!ret) {
+        $('#div_confirm_password')
+          .addClass("error")
+          .append("<span class=\"help-inline\">Passwords do not match</span>");
+      }
+      return ret;
+    })
+  });
+</script>
