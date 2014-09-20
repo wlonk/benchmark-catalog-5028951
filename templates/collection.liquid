@@ -1,22 +1,22 @@
 <div id="add-to-cart-modal" class="modal hide fade" tabindex='-1'>
-  <div class="modal-header">
-    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-    <h3>Add to cart</h3>
-  </div>
-  <div class="modal-body">
-    <div id="add-to-cart-errors">
+  <form action="/" method="post" id="add-to-cart-form">
+    <div class="modal-header">
+      <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+      <h3>Add to cart</h3>
     </div>
-    <form action="/" method="post" id="add-to-cart-form">
-      <input name="sku" type="hidden" value="">
-      <input name="id" type="hidden" value="">
-      Adding <input name="number" type="number" value="1" min="1">
-      <span class="product">widgets</span>
-    </form>
-  </div>
-  <div class="modal-footer">
-    <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
-    <button class="btn btn-primary" form="add-to-cart-form">Add to cart</button>
-  </div>
+    <div class="modal-body">
+      <div id="add-to-cart-errors">
+      </div>
+        <input name="sku" type="hidden" value="">
+        <input name="id" type="hidden" value="">
+        Adding <input name="number" type="number" value="1" min="1">
+        <span class="product">widgets</span>
+    </div>
+    <div class="modal-footer">
+      <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
+      <input class="btn btn-primary" form="add-to-cart-form" value="Add to cart" type="submit">
+    </div>
+  </form>
 </div>
 
 <div id="col-main" class="{{ collection.handle }}">

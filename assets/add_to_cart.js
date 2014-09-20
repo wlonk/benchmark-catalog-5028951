@@ -1,22 +1,51 @@
-function get_min_and_max (sku) {
+'use strict';
+
+function get_min_and_max(sku) {
   var min = false;
   var max = false;
-  if (sku.slice(0, 2) == '71' || sku.slice(0, 2) == '75') {
-    if (sku.slice(0, 2) == '71') {
-      var min = '5';
-      var max = false;
-    } else if (sku.slice(-1) == 'A') {
-      var min = '5';
-      var max = '14';
-    } else if (sku.slice(-1) == 'B') {
-      var min = '15';
-      var max = '29';
-    } else if (sku.slice(-1) == 'C') {
-      var min = '30';
-      var max = false;
+  if (sku.slice(0, 2) === '71' || sku.slice(0, 2) === '75') {
+    if (sku.slice(0, 2) === '71') {
+      min = '5';
+      max = false;
+    } else if (sku.slice(-1) === 'A') {
+      min = '5';
+      max = '14';
+    } else if (sku.slice(-1) === 'B') {
+      min = '15';
+      max = '29';
+    } else if (sku.slice(-1) === 'C') {
+      min = '30';
+      max = false;
     }
   }
   return [min, max];
+}
+
+function update_cart_tab() {
+  $.ajax('/cart.js', {
+    type: 'GET',
+    dataType: 'json',
+    success: function(data, textStatus, jqXHR) {
+      var item_count = data.item_count;
+      var total_price = data.total_price;
+      if (item_count === 1) {
+        item_count += " item";
+      } else {
+        item_count += " items";
+      }
+      $('#cart-item-count').html(item_count);
+      var dollars = parseInt(total_price / 100);
+      var cents = total_price % 100;
+      if (cents < 10) {
+        cents = '0' + cents;
+      }
+      total_price = '$' + Humanize.intComma(dollars) + '.' + cents;
+      $('#cart-total-price').html(total_price);
+    },
+    error: function(jqXHR, textStatus, errorThrown) {
+      console.log(errorThrown);
+    }
+  });
 }
 
 jQuery(function($) {
@@ -36,33 +65,6 @@ jQuery(function($) {
       $(this).removeAttr('max');
     }
   });
-
-  function update_cart_tab() {
-    $.ajax('/cart.js', {
-      type: 'GET',
-      dataType: 'json',
-      success: function(data, textStatus, jqXHR) {
-        var item_count = data.item_count;
-        var total_price = data.total_price;
-        if (item_count == 1) {
-          item_count += " item";
-        } else {
-          item_count += " items";
-        }
-        $('#cart-item-count').html(item_count);
-        var dollars = parseInt(total_price / 100);
-        var cents = total_price % 100;
-        if (cents < 10) {
-          cents = '0' + cents;
-        }
-        total_price = '$' + Humanize.intComma(dollars) + '.' + cents;
-        $('#cart-total-price').html(total_price);
-      },
-      error: function(jqXHR, textStatus, errorThrown) {
-        console.log(errorThrown);
-      }
-    });
-  }
 
   $('.add-to-cart').click(function(evt) {
     var sku = $(evt.target).data('sku');
