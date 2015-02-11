@@ -5,7 +5,7 @@ function get_min_and_max(sku) {
   var max = false;
   var sku = sku.toString();
   if (sku.slice(0, 2) === '71' || sku.slice(0, 2) === '75') {
-    if (sku.slice(0, 2) === '71') {
+    if (sku.slice(0, 2) === '71' && sku !== '71-000') {
       min = '5';
       max = false;
     } else if (sku.slice(-1) === 'A') {
