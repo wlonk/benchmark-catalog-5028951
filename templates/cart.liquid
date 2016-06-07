@@ -46,7 +46,7 @@
           <a href="{{ item.product.collections[0].url }}#{{ item.product.handle }}">
             {% assign is_there_a_title = false %}
             {% if item.product.options[0] == 'Title' %}
-              {% if item.variant.option1 != 'Default Title' %}
+              {% if item.variant.option1 != 'Default Title' and item.variant.option1 != item.product.title %}
                 {% assign is_there_a_title = true %}
               {% endif %}
             {% elsif item.product.options[1] == 'Title' %}

@@ -1,6 +1,6 @@
 {% assign is_there_a_title = false %}
 {% if product.options[0] == 'Title' %}
-    {% if variant.option1 != 'Default Title' %}
+    {% if variant.option1 != 'Default Title' and variant.option1 != product.title %}
         {% assign is_there_a_title = true %}
     {% endif %}
 {% elsif product.options[1] == 'Title' %}

@@ -65,7 +65,7 @@
         <td class="product">
           {% assign is_there_a_title = false %}
           {% if line_item.product.options[0] == 'Title' %}
-            {% if line_item.variant.option1 != 'Default Title' %}
+            {% if line_item.variant.option1 != 'Default Title' and line_item.variant.option1 != line_item.product.title %}
               {% assign is_there_a_title = true %}
             {% endif %}
           {% elsif line_item.product.options[1] == 'Title' %}

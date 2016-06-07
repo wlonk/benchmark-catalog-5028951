@@ -107,7 +107,7 @@
       {% endcase %}
       {% endif %}
     {% else %}
-      {% if variant.option1 != 'Default Title' %}
+      {% if variant.option1 != 'Default Title' and variant.option1 != product.title %}
         {{ variant.option1 }}
       {% endif %}
       {% if variant.option2 != 'Default Subtitle' %}
