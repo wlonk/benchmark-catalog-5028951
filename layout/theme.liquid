@@ -112,15 +112,13 @@
     Theme settings are added to http://www.shopify.com/admin/themes/current#config/settings.html
     {% endcomment %}
 
-    {% if template != 'index' %}
-      <h1 id="site-title" role="banner">
-        <a href="/">
-          <img class="logo" src="{{ 'logo.png' | asset_url }}" alt="Benchmark logo">
-          <span class="benchmark">Benchmark</span>
-          <span class="catalog">Catalog</span>
-        </a>
-      </h1>
-    {% endif %}
+    <h1 id="site-title" role="banner">
+      <a href="/">
+        <img class="logo" src="{{ 'logo.png' | asset_url }}" alt="Benchmark logo">
+        <span class="benchmark">Benchmark</span>
+        <span class="catalog">Catalog</span>
+      </a>
+    </h1>
   </header>
 
 {% if page.url contains 'tip' %}
